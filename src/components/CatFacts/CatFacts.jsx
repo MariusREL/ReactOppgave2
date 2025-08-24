@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import styles from "./CatFacts.module.css"
 export  function CatFacts ()  {
     const [data, setdata] = useState()
     const url ="https://catfact.ninja/facts?limit=5"
@@ -22,7 +23,7 @@ useEffect(() => {
                 <p>Loading</p>
             ) : (
                 data.data.map((fact, idx) => (
-                    <li key={idx}>{fact.fact}</li>
+                    <li className={styles} key={idx}>{fact.fact}</li>
                 ))
             )}
         </ul>
