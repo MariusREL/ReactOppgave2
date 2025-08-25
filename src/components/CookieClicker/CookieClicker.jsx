@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import './CookieClicker.css';
+import cookieImage from '../../assets/cookie.png'; 
 
 const CookieClicker = () => {
   const [score, setScore] = useState(0);
 
-  const handleClick = () => {
-    setScore(score + 1);
-  };
-
   return (
     <div className="cookie-clicker">
-      <h2>cookie</h2>
-      <p>cookies clicked: {score}</p>
-      <button onClick={handleClick}>
-        <img src="/cookie.png" alt="Cookie" />
+      <h2>Cookie Clicker</h2>
+      <p>Score: {score}</p>
+      <button onClick={() => setScore(score + 1)}>
+        <img
+          src={cookieImage} 
+          alt="Image of a Cookie"
+        />
       </button>
     </div>
   );
