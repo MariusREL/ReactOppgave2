@@ -1,0 +1,15 @@
+.cookie-clicker {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cookie-clicker button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cookie-clicker img {
+  width: 100px;
+  height: 100px;
+}

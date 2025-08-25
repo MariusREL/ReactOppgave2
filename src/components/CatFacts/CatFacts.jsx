@@ -1,32 +1,42 @@
-import { useEffect, useState } from "react"
-import styles from "./CatFacts.module.css"
-export  function CatFacts ()  {
-    const [data, setdata] = useState()
-    const url ="https://catfact.ninja/facts?limit=5"
+import { useState, useEffect } from 'react';
+import './CatFacts.css';
 
+const CatFacts = () => {
+  const [facts, setFacts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchFacts = async () => {
+      try {
+        const response = await fetch('https://catfact.ninja/facts?limit=5');
+        if (!response.ok) {
+          throw new Error('Data fetching failed');
+        }
+        const data = await response.json();
+        setFacts(data.data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-useEffect(() => {
-    async function getFacts() {
-        const response = await fetch(url)
-        const responseData = await response.json()
-        setdata(responseData)
-    }
-    getFacts()
-}, [])
+    fetchFacts();
+  }, []);
 
-    
-    return (<div>   
-        <h1>Cat Facts</h1>
-        <ul>
-            {!data ? (
-                <p>Loading</p>
-            ) : (
-                data.data.map((fact, idx) => (
-                    <li className={styles} key={idx}>{fact.fact}</li>
-                ))
-            )}
-        </ul>
+  return (
+    <div className="cat-facts">
+      <h2>Cat Facts</h2>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      <ul>
+        {facts.map((fact, index) => (
+          <li key={index}>{fact.fact}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-    </div>)
-}
+export default CatFacts;
